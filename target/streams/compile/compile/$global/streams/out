@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/anthonyramirez/Desktop/bigDataFinal/airlineData/src/main/scala/airlineData/Airline.scala:118:95: not found: value fly_date[0m
+[0m[[0m[31merror[0m] [0m[0m                                                    'passengers, 'seats, 'flights, 'fly_date, fly_date.substr(1, 4).as("fly_year").as[Int], [0m
+[0m[[0m[31merror[0m] [0m[0m                                                                                              ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
