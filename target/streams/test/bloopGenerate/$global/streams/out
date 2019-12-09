@@ -1,0 +1,4 @@
+[debug] [airlinedata-test] Classpath dependencies List()
+[debug] [airlinedata-test] Dependencies from configurations List(airlinedata)
+[debug] Bloop wrote the configuration of project 'airlinedata-test' to '/users/aramire4/bigData/finalProject/airlineData/.bloop/airlinedata-test.json'
+[success] Generated .bloop/airlinedata-test.json

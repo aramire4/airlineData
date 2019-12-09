@@ -4,7 +4,7 @@
 		module="bigdata-and-machine-learning$sources"
 		revision="1.0"
 		status="integration"
-		publication="20191208090057"
+		publication="20191208211320"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>

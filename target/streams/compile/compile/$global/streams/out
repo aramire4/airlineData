@@ -1,2 +1,4 @@
-[0m[[0m[33mwarn[0m] [0m[0mthere was one deprecation warning (since 2.12.6); re-run with -deprecation for details[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0m/users/aramire4/bigData/finalProject/airlineData/src/main/scala/airlineData/Airline.scala:344:37: not found: value data2007[0m
+[0m[[0m[31merror[0m] [0m[0mval featureDF = assembler.transform(data2007)[0m
+[0m[[0m[31merror[0m] [0m[0m                                    ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

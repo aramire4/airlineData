@@ -68,7 +68,8 @@ object Airline extends App{
 
 //airports:
 //
-/*
+    println("The following will take a while to read in")
+
     val rita1990 = readRITA("1990.csv").cache()
     val rita1991 = readRITA("1991.csv").cache()
     val rita1992 = readRITA("1992.csv").cache()
@@ -93,10 +94,10 @@ object Airline extends App{
                             .union(rita1999).union(rita2000).union(rita2001).union(rita2002)
                             .union(rita2003).union(rita2004).union(rita2005).union(rita2006)
                             .union(rita2007).union(rita2008)
-*/
 
-val rita1997 = readRITA("1997.csv").cache()
-val rita2007 = readRITA("2007.csv").cache()
+
+//val rita1997 = readRITA("1997.csv").cache()
+//val rita2007 = readRITA("2007.csv").cache()
 
 //"/users/mlewis/workspaceF18/CSCI3395-F18/data/ghcn-daily/1997.csv"
 
@@ -148,11 +149,18 @@ val rita2007 = readRITA("2007.csv").cache()
     */
     
     println("***************************************************************")
-
+    
     val data2007 = rita2007.join(ports, 'IATA.contains('Origin)).select('AirportName, 'City, 'Country, 'Latitude, 'Longitude, 'Year, 
                                                                     'Month, 'DayofMonth, 'DepDelay,'ArrDelay, 'Cancelled, 'CancellationCode, 'Dest)
                                                                     .filter(('Longitude < -70.0 && 'Longitude > -150.0) && 'Latitude > 20.0).toDF()
     data2007.show()
+    
+    //average delay times
+    allRita.groupBy('Year).agg(avg(('ArrDelay)).as("Average arrival time delays")).orderBy('Year).show()
+    allRita.groupBy('Year).agg(avg(('DepDelay)).as("Average departure time delays")).orderBy('Year).show()
+
+    //most common reasons for delay
+
 
 
     ////////////////////////////////////////////////
@@ -264,12 +272,15 @@ val rita2007 = readRITA("2007.csv").cache()
     println("what time of year has the most flights?")
     val monthlyFlights = censusFlights.groupBy('fly_month).agg(sum('flights).as("totalFlights")).orderBy('fly_month).show()
 
-    censusFlights.filter('fly_year === 1990).groupBy('fly_month).agg(sum('flights).as("totalFlights 1990")).orderBy('fly_month).show()
-    censusFlights.filter('fly_year === 2008).groupBy('fly_month).agg(sum('flights).as("totalFlights 2008")).orderBy('fly_month).show()
-
+    val monthFlights1990 = censusFlights.filter('fly_year === 1990).groupBy('fly_month).agg(sum('flights).as("totalFlights_1990"))//.orderBy('fly_month).show()
+    val monthFlights2008 = censusFlights.filter('fly_year === 2008).groupBy('fly_month).agg(sum('flights).as("totalFlights_2008"))//.orderBy('fly_month).show()
+    monthFlights1990.orderBy('fly_month).show()
+    monthFlights1990.orderBy('totalFlights_1990).show()
+    monthFlights2008.orderBy('fly_month).show()
+    monthFlights2008.orderBy('totalFlights_2008).show()
 
     //average people per flight
-    
+    println("Average people per flight")
         val passPerFlight = censusFlights.groupBy('fly_year).agg((sum('passengers)/sum('flights)).as("Average_per_flight")).orderBy('fly_year)
         passPerFlight.show()
         val seatsTaken = censusFlights.groupBy('fly_year).agg((sum('passengers)/sum('seats)).as("percent_seats_filled")).orderBy('fly_year)
@@ -297,7 +308,7 @@ val rita2007 = readRITA("2007.csv").cache()
 
 
     //Linear regression on census bureau data to try and predict the number of flights
-
+    println("Linear regression")
     val namesSubset = Set("origin_population", "destination_population", "distance", "passengers", "seats").subsets(3).map(_.toArray).toArray
     var arrs = Seq[(Double, Seq[String])]() //return of the error and the strings that made it
 
